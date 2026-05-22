@@ -1,0 +1,12 @@
+{
+  "_refreshed": "2026-05-22T20:05:00.000Z",
+  "_note": "Seed value — replaced live by the GitHub Action / Finnhub poll.",
+  "price": 132.65,
+  "change": 1.50,
+  "changepct": 1.14,
+  "volume": 5806518,
+  "high52": 138.38,
+  "low52": 23.92,
+  "marketcap": 76791000000,
+  "pe": "#N/A"
+}

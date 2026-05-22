@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="RKLB dashboard logo">
+  <rect width="64" height="64" rx="12" fill="#0A0A0B"/>
+  <!-- signature red exhaust swoosh -->
+  <path d="M6 34 L40 30 L40 38 Z" fill="#E4002B"/>
+  <path d="M10 33 L34 31 L34 35 Z" fill="#FF7A33" opacity="0.85"/>
+  <!-- white angular rocket nose / chevron -->
+  <path d="M30 14 L52 32 L44 32 L34 24 L34 50 L26 50 L26 24 L30 22 Z" fill="#F5F5F7"/>
+  <!-- small ascent tick -->
+  <path d="M28 52 l4 -6 l4 6 z" fill="#F5F5F7"/>
+</svg>

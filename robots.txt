@@ -1,0 +1,25 @@
+# RKLB Investor Dashboard — robots.txt
+# Placeholder domain — replace with your real domain before publishing.
+# https://rklbdashboard.example/
+
+User-agent: *
+Allow: /
+
+# Don't crawl the auto-generated quote JSON or workflow internals
+Disallow: /data/
+Disallow: /.github/
+
+# Be friendly to LLM crawlers / answer engines too
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://rklbdashboard.example/sitemap.xml

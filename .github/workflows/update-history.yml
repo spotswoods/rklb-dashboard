@@ -1,0 +1,45 @@
+name: Update RKLB price history
+
+# Fetches ~1 year of daily OHLC from Yahoo Finance and writes data/history.json.
+# Daily bars only change a few times per trading day, so this runs less often
+# than the quote workflow. Commits only when the data actually changes.
+
+on:
+  schedule:
+    - cron: '15 13 * * 1-5'   # ~09:15 ET, near US market open (Mon-Fri)
+    - cron: '15 21 * * 1-5'   # ~17:15 ET, after US market close (Mon-Fri)
+  workflow_dispatch: {}
+  push:
+    paths:
+      - '.github/workflows/update-history.yml'
+      - '.github/scripts/fetch-history.js'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: history-update
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch history → data/history.json
+        run: node .github/scripts/fetch-history.js
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history.json
+          if git diff --cached --quiet; then
+            echo "No change in price history."
+            exit 0
+          fi
+          LAST=$(node -e "const j=require('./data/history.json');const b=j.bars[j.bars.length-1];process.stdout.write(b.t+' close '+b.c)")
+          git commit -m "chore(history): refresh price history — latest ${LAST} [skip ci]"
+          git push

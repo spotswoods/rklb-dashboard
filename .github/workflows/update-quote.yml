@@ -1,0 +1,79 @@
+name: Update RKLB quote
+
+# Pulls a public Google Sheet (the user populates it with
+# =GOOGLEFINANCE("NASDAQ:RKLB", ...) cells) and writes data/quote.json.
+#
+# Setup (one-time):
+#   1. Create a Google Sheet from the template described in README.md
+#   2. File -> Share -> "Anyone with the link can view"
+#   3. Copy the sheet ID from the URL: /spreadsheets/d/<ID>/edit
+#   4. Repo Settings -> Secrets and variables -> Actions -> Variables tab ->
+#      New repository variable named QUOTE_SHEET_ID with the ID as the value
+#   5. (Optional) override the tab gid by setting QUOTE_SHEET_GID
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # GitHub Actions minimum interval is 5 min
+  workflow_dispatch: {}      # manual trigger from the Actions tab
+  push:
+    paths:
+      - '.github/workflows/update-quote.yml'
+      - '.github/scripts/csv-to-json.js'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quote-update
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify sheet ID is configured
+        env:
+          SHEET_ID: ${{ vars.QUOTE_SHEET_ID }}
+        run: |
+          if [ -z "$SHEET_ID" ]; then
+            echo "::warning::QUOTE_SHEET_ID not set. Add it under Settings → Secrets and variables → Actions → Variables. Skipping run."
+            exit 0
+          fi
+          echo "Sheet ID configured (length=${#SHEET_ID})"
+
+      - name: Fetch sheet CSV
+        if: ${{ vars.QUOTE_SHEET_ID != '' }}
+        env:
+          SHEET_ID: ${{ vars.QUOTE_SHEET_ID }}
+          SHEET_GID: ${{ vars.QUOTE_SHEET_GID || '0' }}
+        run: |
+          mkdir -p data
+          URL="https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}"
+          echo "Fetching: $URL"
+          curl -fsSL --retry 3 --retry-delay 4 "$URL" -o /tmp/quote.csv
+          echo "--- CSV (first 30 lines) ---"
+          head -30 /tmp/quote.csv
+
+      - name: Parse CSV → data/quote.json
+        if: ${{ vars.QUOTE_SHEET_ID != '' }}
+        run: |
+          node .github/scripts/csv-to-json.js /tmp/quote.csv data/quote.json
+          echo "--- data/quote.json ---"
+          cat data/quote.json
+
+      - name: Commit if changed
+        if: ${{ vars.QUOTE_SHEET_ID != '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/quote.json
+          if git diff --cached --quiet; then
+            echo "No changes — quote unchanged."
+            exit 0
+          fi
+          PRICE=$(node -e "const j=require('./data/quote.json');process.stdout.write(String(j.price ?? '?'))")
+          git commit -m "chore(quote): refresh \$${PRICE} at $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push
