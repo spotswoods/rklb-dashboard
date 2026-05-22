@@ -305,9 +305,12 @@
     const svg = el('svg', { class: 'chart-svg', viewBox: `0 0 ${W} ${H}` });
     const grid = el('g', { class: 'chart-grid' }, svg);
     const axis = el('g', { class: 'chart-axis' }, svg);
+    const unit = opts.unit || '';
+    const labels = opts.labels || [];
+    const fmtVal = opts.fmtVal || (v => String(Math.round(v)));
     ticks(0, maxV, 5).forEach(t => {
       el('line', { x1: M.left, x2: W - M.right, y1: y(t), y2: y(t) }, grid);
-      el('text', { x: M.left - 10, y: y(t) + 4, 'text-anchor': 'end' }, axis).textContent = t.toFixed(1) + ' GWh';
+      el('text', { x: M.left - 10, y: y(t) + 4, 'text-anchor': 'end' }, axis).textContent = fmtVal(t);
     });
     data.forEach((d, i) => {
       el('text', { x: M.left + bw * (i + 0.5), y: H - 14, 'text-anchor': 'middle' }, axis).textContent = d.y;
@@ -333,10 +336,12 @@
         }, svg);
         rect.addEventListener('mousemove', (e) => {
           rect.setAttribute('opacity', '0.75');
+          const seriesLabel = labels[ki] || `Line ${ki + 1}`;
+          const u = unit ? ' ' + unit : '';
           showTip(
-            `<div class="label">${d.y} · Line ${ki + 1}</div>
-             <div class="value">${v.toFixed(2)} GWh</div>
-             <div class="row"><span>Total</span><b>${totals[i].toFixed(2)} GWh</b></div>`,
+            `<div class="label">${d.y} · ${seriesLabel}</div>
+             <div class="value">${fmtVal(v)}${u}</div>
+             <div class="row"><span>Total</span><b>${fmtVal(totals[i])}${u}</b></div>`,
             e.clientX, e.clientY
           );
         });
@@ -348,7 +353,7 @@
         x: M.left + bw * (i + 0.5), y: y(totals[i]) - 8, 'text-anchor': 'middle',
         class: 'chart-axis',
         style: `fill: var(--fg-1); font-weight: 600; font-size: 12px;`
-      }, svg).textContent = totals[i].toFixed(1);
+      }, svg).textContent = fmtVal(totals[i]);
     });
 
     clearSvg(host);

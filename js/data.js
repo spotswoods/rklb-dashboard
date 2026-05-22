@@ -3,14 +3,17 @@
 // Feb 26, 2026 release / 10-K. Projections beyond Q1'26 are model assumptions,
 // NOT company guidance (Rocket Lab only guides one quarter out). Not investment advice.
 //
+// ⚠ EDITING THIS DASHBOARD? See EDITING-GUIDE.md in the repo root — it maps every
+// on-page section to the exact data key below (and the chart/render wiring).
+//
 // Internal note on keys: this dashboard reuses a generic render layer, so a few
-// object keys keep neutral legacy names (e.g. frontierPlatform.uk/.us,
-// regulatedPrograms.ofgem/.nyserda, products.indensity/.cube/.z3Module/.dawnos,
-// and the field name `eosExposure`/`eosRelevance`/`eosImpact`). These are PLUMBING
-// only — the rendered content is 100% Rocket Lab. Mapping:
+// object keys keep neutral legacy names (a couple are still Eos-template hooks).
+// These are PLUMBING only — the rendered content is 100% Rocket Lab. Mapping:
 //   frontierPlatform.uk  → Neutron program     frontierPlatform.us  → Space Systems
 //   regulatedPrograms.ofgem → Space Development Agency   .nyserda → Golden Dome / Defense
 //   products.indensity → Neutron   .cube → Electron   .z3Module → Photon   .dawnos → Flatellite/Space Systems
+//   contracts[].scope = the "Scope" column (sats / launch count)
+//   .takeaway = the "what this means for the RKLB investor" blurb (programs, policy, catalyst window)
 //
 // Last refresh: 2026-05-22
 // Primary sources:
@@ -242,16 +245,16 @@ window.RKLB_DATA = {
   // Publicly named Rocket Lab counterparties / programs. $ values are reported
   // where disclosed; * = model estimate. RKLB does not disclose per-launch pricing.
   contracts: [
-    { customer: 'Space Development Agency — Tranche 2 Transport Layer-Beta (prime)', mwh: '18 sats', region: 'US DoD', status: 'Building',          value: '$515M'   },
-    { customer: 'Space Development Agency — Tranche 3 Tracking Layer (prime)',        mwh: '18 sats', region: 'US DoD', status: 'Awarded Dec 2025',  value: '$816M'   },
-    { customer: 'Synspective (Japan) — SAR constellation',                            mwh: '21 launches', region: 'Japan', status: 'Launching → 2030', value: 'Largest dedicated Electron order' },
-    { customer: 'iQPS (Japan) — SAR constellation',                                   mwh: '8 launches',  region: 'Japan', status: 'Launching',        value: 'Multi-launch' },
-    { customer: 'Kinéis (France) — IoT constellation',                                mwh: '5 launches',  region: 'France', status: 'Completed (25 sats)', value: 'Delivered'  },
-    { customer: 'MDA Space / Globalstar — next-gen LEO (subcontract)',                mwh: '17+ sats',    region: 'US/Canada', status: 'Building',     value: '~$143M*'  },
-    { customer: 'Varda Space Industries — re-entry spacecraft (Photon-based)',        mwh: 'multiple',    region: 'US',     status: 'Delivering',       value: 'undisclosed' },
-    { customer: 'MACH-TB 2.0 — hypersonic test (HASTE, via Leidos/DoD)',              mwh: 'multi-launch', region: 'US DoD', status: 'Awarded Q1\'26 (record)', value: 'undisclosed' },
-    { customer: 'Raytheon — Space Based Interceptor (Golden Dome) payload',           mwh: 'prototype',   region: 'US DoD', status: 'Awarded Q1\'26',  value: 'undisclosed' },
-    { customer: 'NASA — ESCAPADE (Mars), CAPSTONE (Moon), science missions',          mwh: 'mission',     region: 'US',     status: 'Mixed',            value: 'undisclosed' }
+    { customer: 'Space Development Agency — Tranche 2 Transport Layer-Beta (prime)', scope: '18 sats', region: 'US DoD', status: 'Building',          value: '$515M'   },
+    { customer: 'Space Development Agency — Tranche 3 Tracking Layer (prime)',        scope: '18 sats', region: 'US DoD', status: 'Awarded Dec 2025',  value: '$816M'   },
+    { customer: 'Synspective (Japan) — SAR constellation',                            scope: '21 launches', region: 'Japan', status: 'Launching → 2030', value: 'Largest dedicated Electron order' },
+    { customer: 'iQPS (Japan) — SAR constellation',                                   scope: '8 launches',  region: 'Japan', status: 'Launching',        value: 'Multi-launch' },
+    { customer: 'Kinéis (France) — IoT constellation',                                scope: '5 launches',  region: 'France', status: 'Completed (25 sats)', value: 'Delivered'  },
+    { customer: 'MDA Space / Globalstar — next-gen LEO (subcontract)',                scope: '17+ sats',    region: 'US/Canada', status: 'Building',     value: '~$143M*'  },
+    { customer: 'Varda Space Industries — re-entry spacecraft (Photon-based)',        scope: 'multiple',    region: 'US',     status: 'Delivering',       value: 'undisclosed' },
+    { customer: 'MACH-TB 2.0 — hypersonic test (HASTE, via Leidos/DoD)',              scope: 'multi-launch', region: 'US DoD', status: 'Awarded Q1\'26 (record)', value: 'undisclosed' },
+    { customer: 'Raytheon — Space Based Interceptor (Golden Dome) payload',           scope: 'prototype',   region: 'US DoD', status: 'Awarded Q1\'26',  value: 'undisclosed' },
+    { customer: 'NASA — ESCAPADE (Mars), CAPSTONE (Moon), science missions',          scope: 'mission',     region: 'US',     status: 'Mixed',            value: 'undisclosed' }
   ],
 
   // ────────── P/S multiple (trailing, by year — approx, premium-growth name) ──────────
@@ -425,7 +428,7 @@ window.RKLB_DATA = {
         anchor:    '~Aug 2026',
         regulator: 'Rocket Lab',
         label:     'Q2 2026 earnings (guided record)',
-        eosExposure: 'Guided to $225–240M revenue and 33–35% GAAP gross margin. A beat extends the record streak; a miss on margin or a Neutron-timeline walk-back hits a richly-valued stock hard.',
+        takeaway: 'Guided to $225–240M revenue and 33–35% GAAP gross margin. A beat extends the record streak; a miss on margin or a Neutron-timeline walk-back hits a richly-valued stock hard.',
         kind: 'final'
       },
       {
@@ -433,7 +436,7 @@ window.RKLB_DATA = {
         anchor:    'Q4 2026',
         regulator: 'Rocket Lab',
         label:     'Neutron maiden flight (Wallops LC-3)',
-        eosExposure: 'The value-inflection event. Success opens the medium-lift / constellation / NSSL market. Another slip or a maiden-flight anomaly is the single largest downside risk to the thesis.',
+        takeaway: 'The value-inflection event. Success opens the medium-lift / constellation / NSSL market. Another slip or a maiden-flight anomaly is the single largest downside risk to the thesis.',
         kind: 'final'
       },
       {
@@ -441,7 +444,7 @@ window.RKLB_DATA = {
         anchor:    '2026',
         regulator: 'US DoD',
         label:     'Golden Dome / SBI program down-selects',
-        eosExposure: 'Rocket Lab is positioned via Raytheon SBI work, Geost EO/IR sensors, MACH-TB hypersonic testing, and HASTE. Award flow would add defense backlog above the current model; being passed over prunes the upside.',
+        takeaway: 'Rocket Lab is positioned via Raytheon SBI work, Geost EO/IR sensors, MACH-TB hypersonic testing, and HASTE. Award flow would add defense backlog above the current model; being passed over prunes the upside.',
         kind: 'preliminary'
       }
     ],
@@ -465,7 +468,7 @@ window.RKLB_DATA = {
         { date: '2026–27',       event: 'Tranche 2 satellite production & deliveries' },
         { date: '2027+',         event: 'Tranche 3 build; Mynaric CONDOR laser terminals integrated' }
       ],
-      eosRelevance: 'Two prime contracts totaling $1.3B+ anchor the backlog. Rocket Lab supplies not just the buses but increasingly the payloads (Geost EO/IR) and the optical inter-satellite links (Mynaric CONDOR) — vertical integration the incumbents have to subcontract. The $3.5B Tranche 3 Tracking buy was split four ways (Lockheed, L3Harris, Northrop, Rocket Lab — 18 sats each).',
+      takeaway: 'Two prime contracts totaling $1.3B+ anchor the backlog. Rocket Lab supplies not just the buses but increasingly the payloads (Geost EO/IR) and the optical inter-satellite links (Mynaric CONDOR) — vertical integration the incumbents have to subcontract. The $3.5B Tranche 3 Tracking buy was split four ways (Lockheed, L3Harris, Northrop, Rocket Lab — 18 sats each).',
       sources: [
         { label: 'FY2025 release — $816M SDA backlog',  url: 'https://www.globenewswire.com/news-release/2026/02/26/3246099/0/en/rocket-lab-announces-fourth-quarter-and-full-year-2025-financial-results-posts-record-quarterly-revenue-of-180m-record-annual-revenue-of-602m-delivering-annual-growth-of-38-and-gro.html' },
         { label: 'Mynaric — CONDOR terminals for SDA T2-Beta', url: 'https://www.businesswire.com/news/home/20250311635390/en/' },
@@ -481,7 +484,7 @@ window.RKLB_DATA = {
         { date: '2026–27',       event: 'SBI / missile-tracking program down-selects expected' },
         { date: 'Ongoing',       event: 'HASTE suborbital test cadence for hypersonic programs' }
       ],
-      eosRelevance: 'Rocket Lab touches the missile-defense stack at multiple layers: launch (Electron/HASTE/Neutron), tracking sensors (Geost EO/IR), hypersonic testing (HASTE, MACH-TB 2.0), and interceptor payload work (Raytheon SBI). Golden Dome is a multi-year, multi-hundred-billion-dollar tailwind — but the dollars are not yet fully appropriated, so it is upside optionality, not booked backlog.',
+      takeaway: 'Rocket Lab touches the missile-defense stack at multiple layers: launch (Electron/HASTE/Neutron), tracking sensors (Geost EO/IR), hypersonic testing (HASTE, MACH-TB 2.0), and interceptor payload work (Raytheon SBI). Golden Dome is a multi-year, multi-hundred-billion-dollar tailwind — but the dollars are not yet fully appropriated, so it is upside optionality, not booked backlog.',
       sources: [
         { label: 'Q1\'26 release — SBI / MACH-TB / DoW', url: 'https://www.sec.gov/Archives/edgar/data/0001819994/000181999426000027/rklb-05072026ex991.htm' },
         { label: 'Rocket Lab — HASTE',                   url: 'https://rocketlabcorp.com/launch/haste/' },
@@ -662,7 +665,7 @@ window.RKLB_DATA = {
   policy: {
     title: 'Golden Dome + record defense-space budgets — structurally bullish for an end-to-end US space company',
     summary: 'US national-security space spending is rising sharply: the SDA\'s proliferated PWSA architecture, the "Golden Dome" homeland missile-defense initiative, hypersonic test demand, and responsive-launch needs all point toward proliferated LEO sensors and domestic launch capacity.',
-    eosImpact: 'Net positive across the board. Rocket Lab is one of very few companies that can serve the full stack domestically — launch (Electron/HASTE/Neutron), satellites (SDA prime), missile-tracking sensors (Geost EO/IR), hypersonic testing (MACH-TB/HASTE), and interceptor payload work (Raytheon SBI). $1.3B+ of SDA prime backlog is already booked; Golden Dome is large incremental optionality.',
+    takeaway: 'Net positive across the board. Rocket Lab is one of very few companies that can serve the full stack domestically — launch (Electron/HASTE/Neutron), satellites (SDA prime), missile-tracking sensors (Geost EO/IR), hypersonic testing (MACH-TB/HASTE), and interceptor payload work (Raytheon SBI). $1.3B+ of SDA prime backlog is already booked; Golden Dome is large incremental optionality.',
     riskNote: 'The upside is appropriations- and procurement-dependent: continuing resolutions, program down-selects, and ITAR/export controls all gate the timing and magnitude. Golden Dome dollars are not yet fully appropriated — treat as optionality, not booked revenue.',
     sources: [
       { label: 'Space Development Agency', url: 'https://www.sda.mil/' },

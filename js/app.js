@@ -370,7 +370,7 @@
     tbody.innerHTML = D.contracts.map(r => `
       <tr>
         <td><b>${r.customer}</b></td>
-        <td class="num">${r.mwh}</td>
+        <td class="num">${r.scope}</td>
         <td>${r.region}</td>
         <td><span class="pill ${r.status.toLowerCase()}">${r.status}</span></td>
         <td class="num">${r.value}</td>
@@ -522,7 +522,7 @@
             <span style="font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:${dColor}">${dStr}</span>
             <span style="font-size:11.5px;color:var(--fg-3)">to end of ${c.anchor}</span>
           </div>
-          <div style="margin-top:10px;font-size:12.5px;color:var(--fg-2);line-height:1.55">${c.eosExposure}</div>
+          <div style="margin-top:10px;font-size:12.5px;color:var(--fg-2);line-height:1.55">${c.takeaway}</div>
         </div>`;
       }).join('');
     }
@@ -539,7 +539,7 @@
       if (!p) return;
       setEl(`[data-program-${prefix}-title]`, p.title);
       setEl(`[data-program-${prefix}-framework]`, p.framework);
-      setEl(`[data-program-${prefix}-relevance]`, p.eosRelevance);
+      setEl(`[data-program-${prefix}-relevance]`, p.takeaway);
       const tl = document.querySelector(`[data-program-${prefix}-timeline]`);
       if (tl) tl.innerHTML = p.timeline.map(t =>
         `<div style="display:grid;grid-template-columns:130px 1fr;gap:10px;padding:4px 0;border-bottom:1px solid var(--line-1)">
@@ -815,7 +815,7 @@
     if (!D.policy) return;
     setEl('[data-policy-title]', D.policy.title);
     setEl('[data-policy-summary]', D.policy.summary);
-    setEl('[data-policy-impact]', D.policy.eosImpact);
+    setEl('[data-policy-impact]', D.policy.takeaway);
     setEl('[data-policy-risk]', D.policy.riskNote);
     const srcs = document.querySelector('[data-policy-sources]');
     if (srcs) srcs.innerHTML = D.policy.sources.map(s =>
@@ -1327,15 +1327,16 @@
     // Charts
     chart('[data-chart-revenue]',  h => C.barChart(h, D.quarterlyRevenue, { colorByType: true, height: 340 }));
     chart('[data-chart-annual]',   h => C.barChart(h, D.annualRevenue,    { colorByType: true, height: 280 }));
-    chart('[data-chart-margin]',   h => C.areaChart(h, D.grossMargin,     { clamp: [-350, 50], breakeven: true, height: 320, yFormat: v => v.toFixed(0) + '%', tipFormat: v => v.toFixed(0) + '%' }));
+    chart('[data-chart-margin]',   h => C.areaChart(h, D.grossMargin,     { clamp: [0, 50], breakeven: true, height: 320, yFormat: v => v.toFixed(0) + '%', tipFormat: v => v.toFixed(0) + '%' }));
     chart('[data-chart-opincome]', h => C.barChart(h, D.opIncome,         { colorByType: true, profitColor: true, height: 320 }));
     chart('[data-chart-liquidity]',h => C.areaChart(h, D.liquidity,       { height: 280 }));
     chart('[data-chart-capacity]', h => C.stackedBars(h, D.capacity, {
       keys: ['l1','l2','l3','l4','l5'], height: 320,
-      colors: ['#E4002B', '#FF7A33', '#7C7CFF', '#ECECF0', '#8E8E98']
+      colors: ['#E4002B', '#FF7A33', '#7C7CFF', '#ECECF0', '#8E8E98'],
+      labels: ['Electron', 'HASTE', 'Neutron', '', ''], unit: 'launches'
     }));
-    chart('[data-chart-uptime]',   h => C.areaChart(h, D.uptime, { height: 240, yFormat: v => v.toFixed(0) + '%', tipFormat: v => v.toFixed(1) + '%' }));
-    chart('[data-chart-graphite]', h => C.barChart(h, D.graphite, { fill: 'var(--brand-violet)', height: 240, tipFormat: v => v.toFixed(0) + ' t', yFormat: v => v.toFixed(0) + ' t' }));
+    chart('[data-chart-uptime]',   h => C.areaChart(h, D.uptime, { height: 240, yFormat: v => v.toFixed(0), tipFormat: v => v.toFixed(0) + ' launches' }));
+    chart('[data-chart-graphite]', h => C.barChart(h, D.graphite, { fill: 'var(--brand-violet)', height: 240, tipFormat: v => v.toFixed(0) + ' launches', yFormat: v => v.toFixed(0) }));
     chart('[data-chart-backlog]',  h => C.areaChart(h, D.backlog,  { height: 300 }));
     chart('[data-chart-bookings]', h => C.barChart(h, D.bookings,  { fill: 'var(--accent)', height: 240 }));
     chart('[data-chart-ps]',       h => C.areaChart(h, D.psMultiple, { height: 260, yFormat: v => v.toFixed(0) + 'x', tipFormat: v => v.toFixed(1) + 'x' }));
