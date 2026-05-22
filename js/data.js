@@ -6,12 +6,10 @@
 // ⚠ EDITING THIS DASHBOARD? See EDITING-GUIDE.md in the repo root — it maps every
 // on-page section to the exact data key below (and the chart/render wiring).
 //
-// Internal note on keys: this dashboard reuses a generic render layer, so a few
-// object keys keep neutral legacy names (a couple are still Eos-template hooks).
-// These are PLUMBING only — the rendered content is 100% Rocket Lab. Mapping:
-//   frontierPlatform.uk  → Neutron program     frontierPlatform.us  → Space Systems
-//   regulatedPrograms.ofgem → Space Development Agency   .nyserda → Golden Dome / Defense
-//   products.indensity → Neutron   .cube → Electron   .z3Module → Photon   .dawnos → Flatellite/Space Systems
+// Data keys are descriptive (growthEngines.neutron/.spaceSystems, demandPrograms.sda/.goldenDome,
+// products.neutron/.electron/.photon/.flatellite). A few invisible DOM hooks in index.html still
+// carry Eos-template names (data-frontier-*, data-program-*, data-prod-indensity/cube/z3/dawnos-*);
+// app.js bridges key → hook, so you never touch those when editing content here. Field notes:
 //   contracts[].scope = the "Scope" column (sats / launch count)
 //   .takeaway = the "what this means for the RKLB investor" blurb (programs, policy, catalyst window)
 //
@@ -370,9 +368,8 @@ window.RKLB_DATA = {
   ],
 
   // ────────── Growth engines — TWO panels (Neutron + Space Systems) ──────────
-  // (uses legacy keys frontierPlatform.uk/.us as plumbing; content is RKLB)
-  frontierPlatform: {
-    uk: {  // → NEUTRON
+  growthEngines: {
+    neutron: {
       name:      'Neutron — Reusable Medium-Lift',
       founded:   'Unveiled March 2021',
       announced: 'Maiden flight targeted Q4 2026 (FAA window Jul–Dec)',
@@ -395,7 +392,7 @@ window.RKLB_DATA = {
         { label: 'Wikipedia — Rocket Lab Neutron',            url: 'https://en.wikipedia.org/wiki/Rocket_Lab_Neutron' }
       ]
     },
-    us: {  // → SPACE SYSTEMS
+    spaceSystems: {
       name:      'Space Systems — The End-to-End Space Company',
       founded:   'Built via M&A 2020–2026',
       announced: 'Mynaric closed Apr 2026 · Geost 2025',
@@ -457,9 +454,8 @@ window.RKLB_DATA = {
   },
 
   // ────────── Demand programs — TWO panels (SDA + Golden Dome/Defense) ──────────
-  // (uses legacy keys regulatedPrograms.ofgem/.nyserda as plumbing)
-  regulatedPrograms: {
-    ofgem: {  // → SPACE DEVELOPMENT AGENCY
+  demandPrograms: {
+    sda: {
       title:     'Space Development Agency — Proliferated Warfighter Space Architecture (PWSA)',
       framework: 'The SDA is building a proliferated LEO mesh of Transport (data relay) and Tracking (missile warning) satellites in successive "Tranches." Rocket Lab is a PRIME on two tranches — a rare feat for a company its size against incumbent defense primes.',
       timeline: [
@@ -475,7 +471,7 @@ window.RKLB_DATA = {
         { label: 'Space Development Agency',             url: 'https://www.sda.mil/' }
       ]
     },
-    nyserda: {  // → GOLDEN DOME / NATIONAL SECURITY
+    goldenDome: {
       title:     'Golden Dome & National Security Space',
       framework: 'The US "Golden Dome" homeland missile-defense initiative and rising national-security space budgets are pulling demand toward proliferated LEO sensors, hypersonic test capacity, and responsive launch — all areas where Rocket Lab now plays end-to-end.',
       timeline: [
@@ -515,9 +511,9 @@ window.RKLB_DATA = {
     note: 'Rocket Lab\'s balance sheet is a strength, not a stress point: >$2.0B total liquidity against just $37.6M of remaining convertible notes (after $118.1M converted in Q1\'26 — the conversion right re-triggered for Q2\'26 as the stock cleared 130% of the conversion price). The liability lines marked with an estimate (*) are split/derived to reconcile to the reported ~$555.5M total liabilities (total assets $2,819.9M − stockholders\' equity $2,264.4M); reconcile to the 10-Q before acting on any single line.<br/><br/><strong style="color:var(--warning)">Dilution to watch:</strong> a $3.0B at-the-market (ATM) equity program is registered and available, and CEO Peter Beck has a Rule 10b5-1 plan to sell up to 5M shares (≈10% of his holdings) through July 8, 2026. Share count is rising — track the 10-Q cover share count and ATM usage.'
   },
 
-  // ────────── Vehicles & platforms (legacy keys: indensity/cube/z3Module/dawnos) ──────────
+  // ────────── Vehicles & platforms ──────────
   products: {
-    indensity: {  // → NEUTRON
+    neutron: {
       name:        'Neutron™',
       tagline:     'Reusable medium-lift launch vehicle',
       launched:    'Maiden flight: Q4 2026 (target)',
@@ -538,7 +534,7 @@ window.RKLB_DATA = {
         { label: 'Wikipedia · Neutron specs', url: 'https://en.wikipedia.org/wiki/Rocket_Lab_Neutron' }
       ]
     },
-    cube: {  // → ELECTRON
+    electron: {
       name:        'Electron™ (+ HASTE)',
       tagline:     'The leading dedicated small orbital launch vehicle',
       launched:    'Commercial since 2018',
@@ -557,7 +553,7 @@ window.RKLB_DATA = {
         { label: 'Rocket Lab · HASTE',         url: 'https://rocketlabcorp.com/launch/haste/' }
       ]
     },
-    z3Module: {  // → PHOTON
+    photon: {
       name:        'Photon™',
       tagline:     'In-house satellite bus / spacecraft platform',
       attributes: [
@@ -570,7 +566,7 @@ window.RKLB_DATA = {
         { label: 'Rocket Lab · Photon', url: 'https://rocketlabcorp.com/space-systems/satellites-spacecraft/' }
       ]
     },
-    dawnos: {  // → FLATELLITE & SPACE SYSTEMS COMPONENTS
+    flatellite: {
       name:        'Flatellite™ & Space Systems',
       tagline:     'Mass-producible satellite + vertically-integrated components',
       launched:    'Flatellite unveiled 2025',

@@ -559,7 +559,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .scenarios { grid-template-columns: 1fr; }
 
   /* Collapse ALL inline multi-column grids (catalyst window, outcome
-     scenarios, Frontier UK/US, product spec grids, methodology, sentiment).
+     scenarios, growth engines, product spec grids, methodology, sentiment).
      They use inline style attributes, so only !important can override them. */
   [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
 

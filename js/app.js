@@ -476,11 +476,12 @@
       </div>`).join('');
   }
 
-  // ---------- NEW: Frontier platform — UK + USA ----------
+  // ---------- Growth engines — Neutron + Space Systems ----------
   function renderFrontier() {
-    if (!D.frontierPlatform) return;
+    if (!D.growthEngines) return;
+    // key = data.js key; prefix = DOM hook (data-frontier-<prefix>-*, kept stable)
     const sideRenderer = (key, prefix) => {
-      const side = D.frontierPlatform[key];
+      const side = D.growthEngines[key];
       if (!side) return;
       setEl(`[data-frontier-${prefix}-meta]`, `Founded ${side.founded} · ${side.announced}`);
       setEl(`[data-frontier-${prefix}-summary]`, side.summary);
@@ -492,8 +493,8 @@
       if (srcs) srcs.innerHTML = (side.sources || []).map(s =>
         `<a href="${s.url}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">${s.label}</a>`).join(' · ');
     };
-    sideRenderer('uk', 'uk');
-    sideRenderer('us', 'us');
+    sideRenderer('neutron', 'uk');
+    sideRenderer('spaceSystems', 'us');
   }
 
   // ---------- NEW: Decision-window catalyst card ----------
@@ -531,11 +532,12 @@
     setEl('[data-catalyst-window-downside]', cw.scenarios.downside);
   }
 
-  // ---------- NEW: Regulated demand programs (Ofgem + NYSERDA) ----------
+  // ---------- Demand programs — SDA + Golden Dome ----------
   function renderRegulatedPrograms() {
-    if (!D.regulatedPrograms) return;
+    if (!D.demandPrograms) return;
+    // key = data.js key; prefix = DOM hook (data-program-<prefix>-*, kept stable)
     const sideRenderer = (key, prefix) => {
-      const p = D.regulatedPrograms[key];
+      const p = D.demandPrograms[key];
       if (!p) return;
       setEl(`[data-program-${prefix}-title]`, p.title);
       setEl(`[data-program-${prefix}-framework]`, p.framework);
@@ -550,8 +552,8 @@
       if (srcs) srcs.innerHTML = (p.sources || []).map(s =>
         `<a href="${s.url}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">${s.label}</a>`).join(' · ');
     };
-    sideRenderer('ofgem', 'ofgem');
-    sideRenderer('nyserda', 'nyserda');
+    sideRenderer('sda', 'ofgem');
+    sideRenderer('goldenDome', 'nyserda');
   }
 
   // ---------- NEW: Capital structure ----------
@@ -675,7 +677,7 @@
       setEl('[data-insider-buys-total]',  fmtUSD(s.openMarketBuys));
       setEl('[data-insider-buys-meta]',   `${s.buyCount} txns · ${s.buyersUnique} insiders`);
       setEl('[data-insider-sells-total]', fmtUSD(s.openMarketSells));
-      setEl('[data-insider-sells-meta]',  `${s.sellCount} txns · before Feb 26 −39% drop`);
+      setEl('[data-insider-sells-meta]',  `~$290.9M lifetime · programmatic 10b5-1 (Beck)`);
       setEl('[data-insider-tax-total]',   fmtUSD(s.taxWithholding));
       setEl('[data-insider-reading]',     s.reading || '');
     }
@@ -810,7 +812,7 @@
     }
   }
 
-  // ---------- NEW: Policy (45X / FEOC) ----------
+  // ---------- Policy — Golden Dome / defense space ----------
   function renderPolicy() {
     if (!D.policy) return;
     setEl('[data-policy-title]', D.policy.title);
@@ -844,7 +846,7 @@
       `<a href="${s.url}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">${s.label}</a>`).join(' · ');
   }
 
-  // ---------- NEW: Product family (Indensity / Cube / Z3 / DawnOS) + competitive ----------
+  // ---------- Vehicles & platforms (Neutron / Electron / Photon / Flatellite) + competitive ----------
   function renderProduct() {
     // Competitive landscape (kept from before)
     const cb = document.querySelector('[data-competitive] tbody');
@@ -860,8 +862,8 @@
     const attrTable = (rows) => rows.map(r =>
       `<tr><td style="color:var(--fg-2);width:38%">${r.k}</td><td><b>${r.v}</b>${r.note ? `<div style="color:var(--fg-3);font-size:11.5px;margin-top:2px;font-weight:400">${r.note}</div>` : ''}</td></tr>`).join('');
 
-    // Indensity
-    const ind = D.products.indensity;
+    // Neutron (DOM hook: data-prod-indensity-*)
+    const ind = D.products.neutron;
     if (ind) {
       setEl('[data-prod-indensity-name]',      ind.name);
       setEl('[data-prod-indensity-tagline]',   ind.tagline);
@@ -875,8 +877,8 @@
       if (sr) sr.innerHTML = srcLinks(ind.sources);
     }
 
-    // Cube
-    const cube = D.products.cube;
+    // Electron (DOM hook: data-prod-cube-*)
+    const cube = D.products.electron;
     if (cube) {
       setEl('[data-prod-cube-name]',     cube.name);
       setEl('[data-prod-cube-tagline]',  cube.tagline);
@@ -888,8 +890,8 @@
       if (sr) sr.innerHTML = srcLinks(cube.sources);
     }
 
-    // Z3 module
-    const z3 = D.products.z3Module;
+    // Photon (DOM hook: data-prod-z3-*)
+    const z3 = D.products.photon;
     if (z3) {
       setEl('[data-prod-z3-name]',    z3.name);
       setEl('[data-prod-z3-tagline]', z3.tagline);
@@ -899,8 +901,8 @@
       if (sr) sr.innerHTML = srcLinks(z3.sources);
     }
 
-    // DawnOS
-    const dawn = D.products.dawnos;
+    // Flatellite (DOM hook: data-prod-dawnos-*)
+    const dawn = D.products.flatellite;
     if (dawn) {
       setEl('[data-prod-dawnos-name]',     dawn.name);
       setEl('[data-prod-dawnos-tagline]',  dawn.tagline);

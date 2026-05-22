@@ -2,10 +2,11 @@
 
 How the dashboard is wired, and **where to change each section's content**.
 
-> This page was originally built from an Eos Energy (EOSE) template. A few internal
-> object keys still carry neutral/legacy names (`frontierPlatform`, `regulatedPrograms`,
-> `products.indensity`, …). They are invisible plumbing — the table below tells you which
-> key drives which on-page section so you never have to guess.
+> This page was originally built from an Eos Energy (EOSE) template. The `data.js` content
+> keys are now descriptive (`growthEngines.neutron`, `demandPrograms.sda`, `products.electron`).
+> A few invisible **DOM hooks** in `index.html`/`app.js` still carry template names
+> (`data-frontier-*`, `data-program-*`, `data-prod-indensity/cube/z3/dawnos-*`) — you only meet
+> those if editing markup or the render layer, never when editing content in `data.js`.
 
 ## The three files
 
@@ -28,14 +29,14 @@ Each row: the on-page section (anchor `#id`), the `data.js` key that fills it, a
 |---|---|---|---|
 | 01 | Overview (`#overview`) | `kpis`, `priceEvents`, `quarterlyRevenue` | KPI strip + 1-yr price/candlestick chart. KPI cards are also hardcoded in `index.html` (~L313–342) — keep them in sync with `kpis`. |
 | 02 | Bull vs Bear (`#thesis`) | `scorecard.bull` / `scorecard.bear` | Each item: `{point, src}`. |
-| 03 | Growth Engines (`#frontier`) | `frontierPlatform.uk` = **Neutron**, `frontierPlatform.us` = **Space Systems** | Legacy key name. Each side: `summary`, `why`, `terms[]`, `sources[]`. |
+| 03 | Growth Engines (`#frontier`) | `growthEngines.neutron`, `growthEngines.spaceSystems` | Each side: `summary`, `why`, `terms[]`, `sources[]`. |
 | 03b | Recent History (`#history`) | `recentHistory[]` | `{date, title, body, url}`, auto-sorted newest-first. |
 | 04 | Financials (`#financials`) | `quarterlyRevenue`, `annualRevenue`, `grossMargin`, `opIncome`, `liquidity`, `quarterTable` | ⚠ The four chart **subtitles** (revenue/cash/margin/op-income) are **hardcoded in `index.html` ~L441–477** — edit there. |
 | 05 | Capital Structure (`#capstructure`) | `capStructure` | `liabilities[]`, `equity[]`, `note` (HTML allowed). |
 | 06 | Launch Cadence (`#production`) | `capacity` (per-year by vehicle), `uptime` (cumulative), `graphite` (per-quarter) | Legacy chart keys. `capacity` series: `l1`=Electron, `l2`=HASTE, `l3`=Neutron. Labels/units set in `app.js` (`labels`, `unit`). |
-| 07 | Vehicles & Platforms (`#product`) | `products.indensity` = **Neutron**, `.cube` = **Electron+HASTE**, `.z3Module` = **Photon**, `.dawnos` = **Flatellite** | Legacy key names. |
+| 07 | Vehicles & Platforms (`#product`) | `products.neutron`, `.electron` (+HASTE), `.photon`, `.flatellite` | |
 | 08 | Backlog & Contracts (`#pipeline`) | `funnel`, `backlog`, `bookings`, `contracts` | `contracts[].scope` → the "Scope" column (sats / launch count). |
-| 08b | Government Programs (`#programs`) | `catalystWindow`, `regulatedPrograms.ofgem` = **SDA**, `.nyserda` = **Golden Dome/Defense** | Legacy key names. `.takeaway` = the investor-impact blurb. |
+| 08b | Government Programs (`#programs`) | `catalystWindow`, `demandPrograms.sda`, `demandPrograms.goldenDome` | `.takeaway` = the investor-impact blurb. |
 | 09 | Valuation (`#valuation`) | `psMultiple`, `marketCap`, `bridge`, `scenarios` | Scenario upside % re-anchors to the live price on load. |
 | 09b | Analyst Coverage (`#analysts`) | `analystCoverage` | `consensus`, `recentActions[]`, `sentiment`. |
 | 09c | Sentiment & Positioning (`#sentiment`) | `sentiment` | `shortInterest`, `insiders`, `institutional`, `retail`. |
@@ -48,13 +49,21 @@ Each row: the on-page section (anchor `#id`), the `data.js` key that fills it, a
 | 11d | About (`#about`) | static HTML | Edit `index.html` directly. |
 | 12 | Risks & Methodology (`#risks`) | `risks[]` | `{title, body}`. Methodology list is static HTML (~L1132–1145). |
 
-## Field-name cheat sheet (legacy → meaning)
+## DOM-hook cheat sheet (only if editing `index.html`/`app.js`)
 
-| Key in `data.js` | Actually means |
+`data.js` content keys are descriptive. But the `data-*` attributes that `app.js` writes into
+still use template names. If you touch the markup, this maps the hook → data key:
+
+| DOM hook in `index.html` | `data.js` key |
 |---|---|
-| `frontierPlatform.uk` / `.us` | Neutron / Space Systems |
-| `regulatedPrograms.ofgem` / `.nyserda` | SDA / Golden Dome |
-| `products.indensity` / `.cube` / `.z3Module` / `.dawnos` | Neutron / Electron / Photon / Flatellite |
+| `data-frontier-uk-*` / `data-frontier-us-*` | `growthEngines.neutron` / `.spaceSystems` |
+| `data-program-ofgem-*` / `data-program-nyserda-*` | `demandPrograms.sda` / `.goldenDome` |
+| `data-prod-indensity-*` / `-cube-` / `-z3-` / `-dawnos-*` | `products.neutron` / `.electron` / `.photon` / `.flatellite` |
+
+Other field notes:
+
+| Field | Meaning |
+|---|---|
 | `contracts[].scope` | "Scope" column value (sats / launches) |
 | `.takeaway` | "What this means for the RKLB investor" blurb |
 | `capacity[].l1` / `.l2` / `.l3` | Electron / HASTE / Neutron launch counts |
