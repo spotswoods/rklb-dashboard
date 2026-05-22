@@ -4,14 +4,14 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Canonical single-page dashboard. Placeholder domain — replace before publishing. -->
+  <!-- Canonical single-page dashboard. -->
   <url>
-    <loc>https://rklbdashboard.example/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <loc>https://spotswoods.github.io/rklb-dashboard/</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://rklbdashboard.example/assets/rocket-lab-logo.svg</image:loc>
+      <image:loc>https://spotswoods.github.io/rklb-dashboard/assets/rocket-lab-logo.svg</image:loc>
       <image:title>Rocket Lab logo</image:title>
       <image:caption>Rocket Lab (RKLB) Investor Dashboard — Independent Research</image:caption>
     </image:image>

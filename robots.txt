@@ -1,13 +1,15 @@
 # RKLB Investor Dashboard — robots.txt
-# Placeholder domain — replace with your real domain before publishing.
-# https://rklbdashboard.example/
+# Live at https://spotswoods.github.io/rklb-dashboard/
+# NOTE: on a GitHub Pages PROJECT site, crawlers read robots.txt from the domain
+# root (https://spotswoods.github.io/robots.txt), not this subpath — so submit the
+# sitemap directly in Google Search Console rather than relying on this file.
 
 User-agent: *
 Allow: /
 
 # Don't crawl the auto-generated quote JSON or workflow internals
-Disallow: /data/
-Disallow: /.github/
+Disallow: /rklb-dashboard/data/
+Disallow: /rklb-dashboard/.github/
 
 # Be friendly to LLM crawlers / answer engines too
 User-agent: GPTBot
@@ -22,4 +24,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://rklbdashboard.example/sitemap.xml
+Sitemap: https://spotswoods.github.io/rklb-dashboard/sitemap.xml

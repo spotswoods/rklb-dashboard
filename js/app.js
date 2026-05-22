@@ -1012,7 +1012,7 @@
     const fmt = (date) => date.toISOString().slice(0, 10).replace(/-/g, '');
     const startDate = fmt(d);
     const endDate = fmt(new Date(d.getTime() + 86400000));
-    const uid = `rklb-${startDate}-${Math.random().toString(36).slice(2, 8)}@rklbdashboard.example`;
+    const uid = `rklb-${startDate}-${Math.random().toString(36).slice(2, 8)}@spotswoods.github.io`;
     const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
     const ics = [
       'BEGIN:VCALENDAR',
@@ -1027,7 +1027,7 @@
       `DTEND;VALUE=DATE:${endDate}`,
       `SUMMARY:RKLB — ${icsEscape(catalyst.event)}`,
       `DESCRIPTION:RKLB catalyst (independent research dashboard)\\nStatus: ${icsEscape(catalyst.status)}\\nOriginal date label: ${icsEscape(catalyst.date)}`,
-      'URL:https://rklbdashboard.example/#catalysts',
+      'URL:https://spotswoods.github.io/rklb-dashboard/#catalysts',
       'END:VEVENT',
       'END:VCALENDAR',
       ''
