@@ -11,8 +11,8 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://spotswoods.github.io/rklb-dashboard/assets/rocket-lab-logo.svg</image:loc>
-      <image:title>Rocket Lab logo</image:title>
+      <image:loc>https://spotswoods.github.io/rklb-dashboard/assets/og-image.png</image:loc>
+      <image:title>Rocket Lab (RKLB) Investor Dashboard</image:title>
       <image:caption>Rocket Lab (RKLB) Investor Dashboard — Independent Research</image:caption>
     </image:image>
   </url>
