@@ -529,7 +529,7 @@
       el('line', { x1: M.left, x2: W - M.right, y1: y, y2: y, stroke: cssVar('--accent'), 'stroke-width': 1, 'stroke-dasharray': '4 3', opacity: 0.9 }, svg);
       const tagW = 52;
       el('rect', { x: W - M.right, y: y - 9, width: tagW, height: 18, rx: 3, fill: cssVar('--accent') }, svg);
-      el('text', { x: W - M.right + tagW / 2, y: y + 4, 'text-anchor': 'middle', style: `fill:#02130E;font-weight:700;font-size:11px;font-family:var(--font-mono)` }, svg).textContent = '$' + opts.livePrice.toFixed(2);
+      el('text', { x: W - M.right + tagW / 2, y: y + 4, 'text-anchor': 'middle', style: `fill:#0A0A0B;font-weight:700;font-size:11px;font-family:var(--font-mono)` }, svg).textContent = '$' + opts.livePrice.toFixed(2);
     }
 
     // event markers on a rail just below the price panel
@@ -556,7 +556,7 @@
       el('line', { x1: x, x2: x, y1: M.top, y2: M.top + priceH, stroke: col, 'stroke-width': 1, 'stroke-dasharray': '2 4', opacity: 0.25 }, svg);
       const g = el('g', {}, svg);
       el('circle', { cx: x, cy: railY, r: 7, fill: col, opacity: 0.92 }, g);
-      el('text', { x: x, y: railY + 3, 'text-anchor': 'middle', style: `fill:#02130E;font-weight:700;font-size:8.5px` }, g).textContent = evGlyph[ev.type] || '•';
+      el('text', { x: x, y: railY + 3, 'text-anchor': 'middle', style: `fill:#0A0A0B;font-weight:700;font-size:8.5px` }, g).textContent = evGlyph[ev.type] || '•';
       // hover area
       const hit = el('rect', { x: x - 9, y: railY - 9, width: 18, height: 18, fill: 'transparent', style: 'cursor:pointer' }, g);
       const fmtDate = new Date(ev.date + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });

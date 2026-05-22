@@ -55,10 +55,10 @@
   --accent: var(--brand-green);
   --accent-soft: rgba(228, 0, 43, 0.16);
   --accent-line: rgba(228, 0, 43, 0.45);
-  --positive: #34D399;
-  --positive-soft: rgba(52, 211, 153, 0.14);
-  --negative: #FF6B6B;
-  --negative-soft: rgba(255, 107, 107, 0.12);
+  --positive: #ECECF0;            /* black+white+red brand: "up" reads as bright white, not green */
+  --positive-soft: rgba(236, 236, 240, 0.12);
+  --negative: #FF5C5C;
+  --negative-soft: rgba(255, 92, 92, 0.12);
   --warning: #FFB347;
 
   --grid: rgba(255, 255, 255, 0.05);
@@ -93,8 +93,8 @@
   --accent: #C70029;            /* deeper red, tuned for legibility on white */
   --accent-soft: rgba(199, 0, 41, 0.10);
   --accent-line: rgba(199, 0, 41, 0.40);
-  --positive: #15994F;
-  --positive-soft: rgba(21, 153, 79, 0.12);
+  --positive: #1A1A1E;            /* light theme: "up" reads as carbon ink, not green */
+  --positive-soft: rgba(26, 26, 30, 0.08);
   --negative: #D33A3A;
   --negative-soft: rgba(211, 58, 58, 0.10);
   --warning: #D88C26;
@@ -154,11 +154,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .ticker__brand { display: flex; align-items: center; gap: 12px; font-weight: 600; }
 .ticker__logo {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: #FFFFFF;
-  display: grid; place-items: center;
-  padding: 3px;
-  box-shadow: 0 6px 18px -6px var(--brand-green);
+  height: 26px; width: auto; border-radius: 7px;
+  background: #FFFFFF;       /* white chip so the dark official wordmark stays legible on the dark UI */
+  display: block;
+  padding: 5px 9px;
+  box-shadow: 0 6px 18px -8px var(--brand-green);
   object-fit: contain;
 }
 .ticker__symbol { font-weight: 700; letter-spacing: 0.04em; }

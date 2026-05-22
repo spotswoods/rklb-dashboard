@@ -689,7 +689,7 @@
                     : 'var(--fg-2)';
         return `<div>
           <span style="display:inline-block;font-family:var(--font-mono);font-weight:700;
-                       color:${color};background:${color};color:#fff;
+                       background:${color};color:var(--bg-0);
                        padding:1px 7px;border-radius:4px;font-size:11.5px;margin-right:6px">${c.code}</span>
           <strong>${c.label}</strong>
           <div style="color:var(--fg-2);font-size:11.5px;margin-top:2px;margin-left:22px">${c.note}</div>
@@ -718,7 +718,7 @@
           <td style="color:var(--fg-2);font-variant-numeric:tabular-nums">${t.date}</td>
           <td><b>${t.name}</b>${noteLine}</td>
           <td style="color:var(--fg-2);font-size:11.5px">${t.role}</td>
-          <td><span style="display:inline-block;background:${codeColor};color:#fff;
+          <td><span style="display:inline-block;background:${codeColor};color:var(--bg-0);
                             font-family:var(--font-mono);font-weight:700;font-size:11px;
                             padding:1px 6px;border-radius:4px">${t.code}</span></td>
           <td class="num">${sign}${t.shares.toLocaleString()}</td>
@@ -1332,7 +1332,7 @@
     chart('[data-chart-liquidity]',h => C.areaChart(h, D.liquidity,       { height: 280 }));
     chart('[data-chart-capacity]', h => C.stackedBars(h, D.capacity, {
       keys: ['l1','l2','l3','l4','l5'], height: 320,
-      colors: ['#E4002B', '#FF7A33', '#7C7CFF', '#34D399', '#8E8E98']
+      colors: ['#E4002B', '#FF7A33', '#7C7CFF', '#ECECF0', '#8E8E98']
     }));
     chart('[data-chart-uptime]',   h => C.areaChart(h, D.uptime, { height: 240, yFormat: v => v.toFixed(0) + '%', tipFormat: v => v.toFixed(1) + '%' }));
     chart('[data-chart-graphite]', h => C.barChart(h, D.graphite, { fill: 'var(--brand-violet)', height: 240, tipFormat: v => v.toFixed(0) + ' t', yFormat: v => v.toFixed(0) + ' t' }));
